@@ -1,0 +1,40 @@
+{
+	"name" : "CSTruter/Html-Elements",
+	"description" : "Html Elements Abstractions",
+	"version" : "0.1.0",
+	"autoload": {
+		"classmap" : [
+			"Elements/HtmlElement.php",
+			"Elements/HtmlChildElements.php",
+			"Elements/HtmlFormControlElement.php",
+			"Elements/HtmlSettings.php",
+			"Elements/HtmlInputElement.php",
+			"Elements/HtmlTextInputElement.php",
+			"Elements/HtmlPasswordInputElement.php",
+			"Elements/HtmlHiddenInputElement.php",
+			"Elements/HtmlOptionElement.php",
+			"Elements/HtmlOptionGroupElement.php",
+			"Elements/HtmlSelectElement.php",
+			"Elements/TreeView.php",
+			"Elements/TreeViewItem.php",
+			"Elements/TreeViewItemExpander.php",
+			"Elements/TreeViewItemContainer.php",
+			"Serialization/Interfaces/IHtmlElement.php",
+			"Serialization/Interfaces/IHtmlInnerElements.php",
+			"Serialization/Interfaces/IHtmlScriptBlock.php",
+			"Serialization/Interfaces/IHtmlSerializer.php",
+			"Serialization/Html/HtmlInputSerializer.php",
+			"Serialization/Html/HtmlOptionGroupSerializer.php",
+			"Serialization/Html/HtmlOptionSerializer.php",
+			"Serialization/Html/HtmlSelectSerializer.php",
+			"Serialization/Html/TreeViewSerializer.php",
+			"Serialization/Html/TreeViewItemSerializer.php",
+			"Serialization/Html/TreeViewItemExpanderSerializer.php",
+			"Serialization/Html/TreeViewItemContainerSerializer.php",
+			"Serialization/Html/HtmlSerializer.php"
+		]
+	},
+    "require-dev": {
+        "phpdocumentor/phpdocumentor": "*"
+    }	
+}

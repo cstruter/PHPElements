@@ -1,0 +1,140 @@
+.cstruter-unselectable {
+	display:inline-block;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	outline: 0;
+}
+
+ul.cstruter-tree, 
+ul.cstruter-tree ul {
+	list-style-type: none;
+	background: url(images/vline.png) repeat-y;
+	padding:0;	
+}
+
+ul.cstruter-tree-disabled {
+	color:#777;
+}
+
+ul.cstruter-tree ul {
+	margin-left: 10px;
+}
+
+ul.cstruter-tree li.cstruter-tree-parent
+{
+	cursor:pointer;
+}
+
+ul.cstruter-tree-disabled li.cstruter-tree-parent {
+	cursor: not-allowed;
+}
+
+
+ul.cstruter-tree li.cstruter-tree-item-disabled {
+	cursor: not-allowed;
+	color:#777;
+}
+
+ul.cstruter-tree li span.cstruter-tree-selected {
+	background-color:#EEE !important;
+}
+
+ul.cstruter-tree li.cstruter-tree-parent.cstruter-tree-collapsed > span {
+	background: url(images/plus.gif) no-repeat;
+	padding-right:5px;
+	background-position: left;
+}
+
+ul.cstruter-tree li.cstruter-tree-parent > span {
+	margin: 0;
+	padding: 0 12px;
+	background: url(images/minus.gif) no-repeat;
+	padding-right:5px;
+	background-position: left;
+}
+
+ul.cstruter-tree li.cstruter-tree-parent.cstruter-tree-collapsed ul {
+	display:none;
+}
+
+ul.cstruter-tree li {
+	margin: 0;
+	padding: 0 12px;
+	line-height: 20px;
+	background: url(images/node.png) no-repeat;
+}
+
+ul.cstruter-tree li.cstruter-tree-last {
+	background: url(images/lastnode.png) no-repeat;
+	background-color: #FFF;
+}
+
+ul.cstruter-tree-responsive, 
+ul.cstruter-tree-responsive ul {
+	list-style-type: none;
+	padding:0;
+}
+
+ul.cstruter-tree-responsive-disabled {
+	color:#777;
+}
+
+ul.cstruter-tree-responsive {
+	display:none;
+}
+
+ul.cstruter-tree-responsive li.cstruter-tree-responsive-parent
+{
+	cursor:pointer;
+}
+
+ul.cstruter-tree-responsive-disabled li.cstruter-tree-responsive-parent {
+	cursor: not-allowed;
+}
+
+ul.cstruter-tree-responsive li.cstruter-tree-responsive-item-disabled {
+	cursor: not-allowed;
+	color:#777;
+}
+
+ul.cstruter-tree-responsive li span {
+	border: 1px solid #CCC;
+	display:block;
+	padding:10px;
+	padding-left:20px;
+}
+
+ul.cstruter-tree-responsive li span.cstruter-tree-responsive-parent-selected {
+	background: url(images/up.gif) no-repeat !important;	
+	background-color:#999 !important;
+	color:#FFF;
+    background-position: left center !important;
+}
+
+ul.cstruter-tree-responsive li.cstruter-tree-responsive-parent.cstruter-tree-responsive-collapsed > span {
+	background: url(images/next.gif) no-repeat;
+	background-position: left;
+}
+
+ul.cstruter-tree-responsive li span.cstruter-tree-responsive-selected {
+	background-color:#EEE !important;
+}
+
+ul.cstruter-tree-responsive li.cstruter-tree-responsive-parent > span, 
+ul.cstruter-tree-responsive li span.cstruter-tree-responsive-selected {
+	margin: 0;
+	background: url(images/back.gif) no-repeat;
+	background-position: left;
+}
+
+ul.cstruter-tree-responsive li.cstruter-tree-responsive-parent.cstruter-tree-responsive-collapsed ul {
+	display:none;
+}
+
+ul.cstruter-tree-responsive li span.cstruter-tree-responsive-obscure {
+	display:none;
+}

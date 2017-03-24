@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+	<title>PHP Html Elements</title>
+	<parser>
+		<target>output</target>
+	</parser>
+	<transformer>
+		<target>output</target>
+	</transformer>
+	<files>
+		<directory>Elements</directory>
+		<directory>Serialization</directory>
+	</files>
+    <transformations>
+        <template name="clean"/>
+    </transformations>	
+</phpdoc>
