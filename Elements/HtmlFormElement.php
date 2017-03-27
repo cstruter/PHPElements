@@ -1,7 +1,7 @@
 <?php
 
 /**
-* File Containing HtmlFormControlElement Class
+* File Containing HtmlFormElement Class
 */
 
 namespace CSTruter\Elements;

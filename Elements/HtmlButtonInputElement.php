@@ -15,7 +15,7 @@ namespace CSTruter\Elements;
 */
 class HtmlButtonInputElement extends HtmlInputElement
 {
-	/** @var function Callback fired when the user clicked on the button */
+	/** @var callable Callback fired when the user clicked on the button */
 	public $OnClick = null;
 	
 	/**

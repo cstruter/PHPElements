@@ -32,7 +32,7 @@ abstract class HtmlElement
 	
 	/**
 	* Disabled Setter
-	* @param boolean $disabled disable the element
+	* @param boolean $value disable the element
 	*/
 	public function SetDisabled($value) {
 		$this->Disabled = $value;
