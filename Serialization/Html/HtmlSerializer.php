@@ -11,6 +11,7 @@ use CSTruter\Serialization\Interfaces\IHtmlElement,
 	CSTruter\Serialization\Interfaces\IHtmlInnerElements,
 	CSTruter\Serialization\Interfaces\IHtmlScriptBlock,
 	CSTruter\Elements\HtmlElement,
+	CSTruter\Elements\HtmlFormElement,
 	CSTruter\Elements\HtmlSelectElement,
 	CSTruter\Elements\HtmlOptionElement,
 	CSTruter\Elements\HtmlOptionGroupElement,
@@ -36,23 +37,18 @@ implements IHtmlSerializer
 	*/
 	public function Serialize(HtmlElement $element)
 	{
-		$serializer = $this->getSerializer($element);
+		$serializer = $this->GetSerializer($element);
 		
 		if (!$serializer instanceof IHtmlElement) {
 			throw new \Exception('Serializer '.get_class($serializer).' not instance of IHtmlElement');
 		}
 		
-		$tagName = $serializer->GetTagName();
-		$html = "<$tagName";
-		$html.= $this->getAttributeHtml($serializer);
-		if ($this->isVoidElement($serializer)) {
-			$html.= ' >';
-		} else {
-			$html.= '>';
+		$html = $this->BeginTag($serializer);
+		if (!$this->isVoidElement($serializer)) {
 			$html.= $this->getChildContent($serializer);
-			$html.= "</$tagName>";
+			$html.= $this->EndTag($serializer);
 		}
-		$html.= $this->getChildScriptBlock($serializer);
+		$html.= $this->GetChildScriptBlock($serializer);
 		return $html;
 	}
 	
@@ -61,7 +57,7 @@ implements IHtmlSerializer
 	* @param HtmlElement $element Html element instance 
 	* @return mixed
 	*/
-	protected function getSerializer($element) {
+	public function GetSerializer($element) {
 		if ($element instanceof HtmlSelectElement) {
 			return new HtmlSelectSerializer($element);
 		} else if ($element instanceof HtmlOptionElement) {
@@ -78,6 +74,8 @@ implements IHtmlSerializer
 			return new TreeViewItemExpanderSerializer($element);
 		} else if ($element instanceof TreeViewItemContainer) {
 			return new TreeViewItemContainerSerializer($element);
+		} else if ($element instanceof HtmlFormElement) {
+			return new HtmlFormSerializer($element);
 		}
 		throw new \Exception('No metadata found for element '.get_class($element));
 	}
@@ -123,13 +121,38 @@ implements IHtmlSerializer
 		}
 		return $html;
 	}
+
+	/**
+	* Render Begin Tag
+	* @param mixed $serializer Serialization strategy
+	* @return string
+	*/
+	public function BeginTag($serializer)
+	{
+		$tagName = $serializer->GetTagName();
+		$html = "<$tagName";
+		$html.= $this->getAttributeHtml($serializer);
+		$html.= '>';
+		return $html;
+	}
+	
+	/**
+	* Render End Tag
+	* @param mixed $serializer Serialization strategy
+	* @return string
+	*/
+	public function EndTag($serializer) 
+	{
+		$tagName = $serializer->GetTagName();
+		return "</$tagName>";
+	}	
 	
 	/**
 	* Generate client side code that might be associated with an element
 	* @param mixed $serializer Serialization strategy
 	* @return string javascript code
 	*/
-	protected function getChildScriptBlock($serializer) {
+	public function GetChildScriptBlock($serializer) {
 		if ($serializer instanceof IHtmlScriptBlock) {
 			$scriptBlock = $serializer->GetClientScriptBlock();
 			return '<script type="text/javascript">'.$scriptBlock.'</script>';

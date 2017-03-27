@@ -36,7 +36,7 @@ implements IHtmlElement, IHtmlInnerElements
 	*/		
 	public function GetAttributes() {
 		return [
-			'disabled' => ($this->element->Disabled) ? '' : null,
+			'disabled' => ($this->element->GetDisabled()) ? '' : null,
 			'label' => $this->element->Label
 		];
 	}

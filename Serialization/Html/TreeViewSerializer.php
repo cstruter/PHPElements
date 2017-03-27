@@ -51,7 +51,7 @@ implements IHtmlElement, IHtmlInnerElements, IHtmlScriptBlock
 		$prefix = $this->getPrefix();
 		$CSSClasses = [$prefix, 'cstruter-unselectable'];
 			
-		if ($this->element->Disabled) {
+		if ($this->element->GetDisabled()) {
 			$CSSClasses[] = "$prefix-disabled";
 		}
 		return array_merge($this->element->CSSClass, $CSSClasses);

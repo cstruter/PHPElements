@@ -15,9 +15,6 @@ namespace CSTruter\Elements;
 */
 class HtmlOptionElement extends HtmlElement
 {
-	/** @var boolean when set to false, the element will be unselectable */
-	public $Disabled;
-	
 	/** @var boolean indicates whether or not the element is selected */
 	public $Selected;
 	
@@ -32,14 +29,12 @@ class HtmlOptionElement extends HtmlElement
 	* @param string $text		the text displayed for the option (or if value not set, value to be sent to a server)
 	* @param string $value		(Optional) value sent to the server
 	* @param boolean $selected	(Optional) indicates whether or not the element is selected
-	* @param boolean $disabled	(Optional) when set to false the element will be unselectable
 	*/
-	public function __construct($text, $value = null, $selected = false, $disabled = false) 
+	public function __construct($text, $value = null, $selected = false) 
 	{
 		$this->Text = $text;
 		$this->Value = $value;
 		$this->Selected = $selected;
-		$this->Disabled = $disabled;
 	}
 	
 	/**

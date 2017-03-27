@@ -15,9 +15,28 @@ use CSTruter\Serialization\Interfaces\IHtmlSerializer;
 * @copyright 2005-2017 CSTruter
 */
 abstract class HtmlElement
-{	
+{
+	/** @var boolean disable this element */
+	protected $Disabled = false;
+	
 	/** @var mixed the parent this element is embedded in */
 	public $ParentElement = null;
+	
+	/**
+	* Disabled Getter
+	* @return boolean
+	*/
+	public function GetDisabled() {
+		return $this->Disabled;
+	}
+	
+	/**
+	* Disabled Setter
+	* @param boolean $disabled disable the element
+	*/
+	public function SetDisabled($value) {
+		$this->Disabled = $value;
+	}	
 	
 	/**
 	* Render the element

@@ -13,10 +13,7 @@ namespace CSTruter\Elements;
 * @copyright 2005-2017 CSTruter
 */
 class TreeViewItem extends HtmlElement
-{
-	/** @var boolean disable this element */
-	public $Disabled;
-	
+{	
 	/** @var string value returned to/from the server */
 	public $Value;
 	
@@ -50,15 +47,13 @@ class TreeViewItem extends HtmlElement
 	* @param string $text display text of the element
 	* @param string $parentValue the value assigned to the parent element
 	* @param boolean $selected indicates whether or not the element is selected
-	* @param boolean $disabled the element will be unselectable if true
 	*/
-	public function __construct($value, $text, $parentValue = null, $selected = false, $disabled = false) 
+	public function __construct($value, $text, $parentValue = null, $selected = false) 
 	{
 		$this->Text = $text;
 		$this->Value = $value;
 		$this->Selected = $selected;
 		$this->ParentValue = $parentValue;
-		$this->Disabled = $disabled;
 		$this->ExpanderElement = new TreeViewItemExpander($this);
 		$this->ContainerElement = new TreeViewItemContainer();
 	}

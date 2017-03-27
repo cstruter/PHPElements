@@ -18,9 +18,6 @@ class HtmlOptionGroupElement extends HtmlElement
 	/** @var HtmlOptionElement[] collection of option elements */
 	private $Children;
 	
-	/** @var boolean disable the element */
-	public $Disabled;
-	
 	/** @var string display text for the option group */
 	public $Label;
 
@@ -28,12 +25,10 @@ class HtmlOptionGroupElement extends HtmlElement
 	* Constructor
 	* @param string $label display text for the option group
 	* @param HtmlOptionElement[] $children (Optional) collection of option elements
-	* @param boolean $disabled 	(Optional) disable the element
 	*/
-	public function __construct($label, array $children = [], $disabled = false) 
+	public function __construct($label, array $children = []) 
 	{
 		$this->Label = $label;
-		$this->Disabled = $disabled;
 		$this->Children = $children;
 	}
 	

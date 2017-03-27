@@ -18,12 +18,8 @@ class HtmlSettings
 {
 	/** @var IHtmlSerializer Default Serializer used among all html elements */
 	public static $Serializer;
-	
-	/** @var string GET or POST */
-	public static $RequestMethod;
 }
 
 HtmlSettings::$Serializer = new HtmlSerializer();
-HtmlSettings::$RequestMethod = 'POST';
 
 ?>

@@ -69,7 +69,7 @@ implements IHtmlElement, IHtmlInnerElements
 		if ($this->element->Collapsed) {
 			$CSSClasses[] = "$prefix-collapsed";
 		}
-		if ($this->element->Disabled) {
+		if ($this->element->GetDisabled()) {
 			$CSSClasses[] = "$prefix-item-disabled";
 		}
 		return array_merge($this->element->CSSClass, $CSSClasses);

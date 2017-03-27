@@ -39,7 +39,7 @@ implements IHtmlElement, IHtmlInnerElements, IHtmlScriptBlock
 		return [
 			'id' => $this->element->GetName(),
 			'name' => $this->element->GetName(),
-			'disabled' => ($this->element->Disabled) ? '' : null
+			'disabled' => ($this->element->GetDisabled()) ? '' : null
 		];
 	}
 

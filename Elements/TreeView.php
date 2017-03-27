@@ -34,13 +34,11 @@ class TreeView extends HtmlFormControlElement
 	* @param string $name name of the element 
 	* @param TreeViewItem[] $children array of treeview items
 	* @param string $value (Optional) selected value
-	* @param boolean $disabled (Optional) disable the element
-	* @param string $requestMethod (Optional) GET or SET - defaults to HtmlSettings 
 	*/
-	public function __construct($name, array $children = [], $value = null, $disabled = false, $requestMethod = null)
+	public function __construct($name, array $children = [], $value = null)
 	{
-		parent::__construct($name, $disabled);
-		$this->formField = new HtmlHiddenInputElement($name, $value, $requestMethod);
+		parent::__construct($name);
+		$this->formField = new HtmlHiddenInputElement($name, $value);
 		$this->SetChildren($children, $this->formField->GetValue());
 	}
 	
@@ -123,7 +121,7 @@ class TreeView extends HtmlFormControlElement
 			if ($child instanceof TreeViewItem) {
 				$child->Collapsed = true;
 				$child->Selected = false;
-				if ($child->Value === $value) {
+				if ($child->Value == $value) {
 					$this->Value = $child;
 					$child->Selected = true;
 				}

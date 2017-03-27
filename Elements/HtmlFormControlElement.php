@@ -14,8 +14,8 @@ namespace CSTruter\Elements;
 */
 abstract class HtmlFormControlElement extends HtmlElement
 {
-	/** @var boolean disable this element */
-	public $Disabled;
+	/** @var HtmlFormElement the parent form this control reports to */
+	protected $FormElement;
 	
 	/** @var string name of the element used in request and to identify element in client side DOM */
 	protected $Name;
@@ -26,14 +26,9 @@ abstract class HtmlFormControlElement extends HtmlElement
 	/**
 	* Constructor
 	* @param string $name name of the element 
-	* @param boolean $disabled disable the element
 	*/
-	public function __construct(
-		$name, 
-		$disabled = false) 
-	{
+	public function __construct($name) {
 		$this->Name = $name;
-		$this->Disabled = $disabled;
 	}
 	
 	/**
@@ -61,22 +56,18 @@ abstract class HtmlFormControlElement extends HtmlElement
 	}
 	
 	/**
-	* Get value from request based on request method
-	* @param string $requestMethod (Optional) GET or SET - defaults to HtmlSettings
+	* FormElement Setter
+	* @param HtmlFormElement $formElement parent form this element reports to
 	*/
-	protected function GetUserValue($requestMethod = null)
-	{
+	public function SetForm(HtmlFormElement $formElement) {
+		$this->FormElement = $formElement;
+		$this->FormElement->Children->Add($this);
 		$name = $this->GetName();
-		if ($requestMethod == null) {
-			$requestMethod = HtmlSettings::$RequestMethod;
+		$userValue = $this->FormElement->GetUserValue($name);
+		if ($userValue !== null) {
+			$this->SetValue($userValue);
 		}
-		if ($requestMethod == 'POST' && isset($_POST[$name])) {
-			return htmlspecialchars_decode($_POST[$name]);
-		} else if ($requestMethod == 'GET' && isset($_GET[$name])) {
-			return htmlspecialchars_decode($_GET[$name]);
-		}
-		return null;
-	}	
+	}
 }
 
 ?>

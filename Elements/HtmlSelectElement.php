@@ -32,20 +32,13 @@ class HtmlSelectElement extends HtmlFormControlElement
 	* @param string $name name of the element 
 	* @param HtmlOptionElement[]|HtmlOptionGroupElement[] $children array of options and optgroups
 	* @param string $value (Optional) selected value
-	* @param boolean $disabled (Optional) disable the element
-	* @param string $requestMethod (Optional) GET or SET - defaults to HtmlSettings 
 	*/
-	public function __construct($name, 
-		array $children = [], 
-		$value = null,
-		$disabled = false,
-		$requestMethod = null)
+	public function __construct($name, array $children = [], $value = null)
 	{
-		parent::__construct($name, $disabled);
-		$userValue = $this->GetUserValue($requestMethod);
-		$this->SetChildren($children, ($userValue === null) ? $value : $userValue);
+		parent::__construct($name);
+		$this->SetChildren($children, $value);
 	}
-
+	
 	/**
 	* Set selected child
 	* @param HtmlOptionElement|HtmlOptionGroupElement $child option or optgroup

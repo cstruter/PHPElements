@@ -38,7 +38,7 @@ implements IHtmlElement
 			'id' => $this->element->GetName(),
 			'name' => $this->element->GetName(),
 			'type' => $this->element->GetType(),
-			'disabled' => ($this->element->Disabled) ? '' : null
+			'disabled' => ($this->element->GetDisabled()) ? '' : null
 		];
 		if ($attributes['type'] !== 'password') {
 			$attributes['value'] = $this->element->GetValue();
