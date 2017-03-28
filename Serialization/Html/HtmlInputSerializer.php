@@ -7,7 +7,9 @@
 namespace CSTruter\Serialization\Html;
 
 use CSTruter\Serialization\Interfaces\IHtmlElement,
-	CSTruter\Elements\HtmlInputElement;
+	CSTruter\Elements\HtmlInputElement,
+	CSTruter\Elements\HtmlCheckBoxInputElement,
+	CSTruter\Elements\HtmlPasswordInputElement;
 
 /**
 * Html input element serialization strategy
@@ -40,8 +42,13 @@ implements IHtmlElement
 			'type' => $this->element->GetType(),
 			'disabled' => ($this->element->GetDisabled()) ? '' : null
 		];
-		if ($attributes['type'] !== 'password') {
+		if ($this->element instanceof HtmlPasswordInputElement) {
 			$attributes['value'] = $this->element->GetValue();
+		}
+		if ($this->element instanceof HtmlCheckBoxInputElement) {
+			if ($this->element->GetChecked()) {
+				$attributes['checked'] = 'checked';
+			}
 		}
 		return $attributes;
 	}
