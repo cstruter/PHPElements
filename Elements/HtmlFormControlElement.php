@@ -69,6 +69,9 @@ abstract class HtmlFormControlElement extends HtmlElement
 		$this->FormElement = $formElement;
 		$this->FormElement->Children->Add($this);
 		$name = $this->GetName();
+		if (!$this->FormElement->IsPostBack()) {
+			return;
+		}
 		$userValue = $this->FormElement->GetUserValue($name);
 		if ($userValue !== null) {
 			$this->SetValue($userValue);

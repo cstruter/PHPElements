@@ -16,6 +16,8 @@ use CSTruter\Serialization\Interfaces\IHtmlElement,
 	CSTruter\Elements\HtmlOptionElement,
 	CSTruter\Elements\HtmlOptionGroupElement,
 	CSTruter\Elements\HtmlInputElement,
+	CSTruter\Elements\CheckBox,
+	CSTruter\Elements\CheckBoxList,
 	CSTruter\Elements\TreeView,
 	CSTruter\Elements\TreeViewItem,
 	CSTruter\Elements\TreeViewItemExpander,
@@ -66,6 +68,10 @@ implements IHtmlSerializer
 			return new HtmlOptionGroupSerializer($element);
 		} else if ($element instanceof HtmlInputElement) {
 			return new HtmlInputSerializer($element);
+		} else if ($element instanceof CheckBox) {
+			return new CheckBoxSerializer($element);
+		} else if ($element instanceof CheckBoxList) {
+			return new CheckBoxListSerializer($element);
 		} else if ($element instanceof TreeView) {
 			return new TreeViewSerializer($element);
 		} else if ($element instanceof TreeViewItem) {

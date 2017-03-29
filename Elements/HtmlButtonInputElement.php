@@ -39,6 +39,9 @@ implements IPreRenderEvents
 			return;
 		}
 		$name = $this->GetName();
+		if (!$this->FormElement->IsPostBack()) {
+			return;
+		}
 		$userValue = $this->FormElement->GetUserValue($name);
 		if ($userValue !== null) {
 			$this->OnClick->__invoke($this->FormElement); 

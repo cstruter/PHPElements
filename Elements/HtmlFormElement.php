@@ -25,6 +25,9 @@ class HtmlFormElement extends HtmlElement
 	/** @var string GET or POST */
 	protected $RequestMethod;
 	
+	/** @var string Used to identify user interactions */
+	protected $PostFieldElement;
+	
 	/** @var string|callable File include or Closure within the form tags */
 	protected $OnBodyControlsAdded = null;
 	
@@ -43,6 +46,7 @@ class HtmlFormElement extends HtmlElement
 		$this->RequestMethod = $requestMethod;
 		$this->Name = $name;
 		$this->Children = new HtmlChildElements();
+		$this->RequestVerification();
 	}
 
 	/**
@@ -90,6 +94,15 @@ class HtmlFormElement extends HtmlElement
 	}
 	
 	/**
+	* Check if the user performed an interaction on the form
+	* @param string $name element request object property name
+	*/	
+	public function IsPostBack() {
+		$sessionKey = $this->GetRequestVerificationKey();
+		return (isset($_POST[$sessionKey]));
+	}
+	
+	/**
 	* Renders fileName set via Body method
 	* @param IHtmlSerializer|null $serializer serialization strategy
 	* @throws HtmlElementException if no child elements were added
@@ -102,6 +115,35 @@ class HtmlFormElement extends HtmlElement
 		$html.= $this->GetCallbackContents($serializer);
 		$html.= $this->EndTag($serializer);
 		return $html;
+	}
+
+	/**
+	* Rudimentary Request Verification
+	* @throws HtmlElementException if the server is unable to verify the request
+	*/
+	protected function RequestVerification() {
+		$sessionKey = $this->GetRequestVerificationKey();
+		$sessionValue = $this->GetUserValue($sessionKey);
+		if ($sessionValue !== null) {
+			if (isset($_SESSION[$sessionKey])) {
+				if ($_SESSION[$sessionKey] !== $sessionValue) {
+					throw new HtmlElementException('Request verification failed', 10011);
+				}
+			} else {
+				throw new HtmlElementException('Unable to verify request', 10012);
+			}
+		}
+		$sessionValue = uniqid();
+		$this->PostFieldElement = new HtmlHiddenInputElement($sessionKey, $sessionValue);
+		$_SESSION[$sessionKey] = $sessionValue;		
+	}	
+	
+	/**
+	* Get Request Verification Key
+	* @return string
+	*/
+	protected function GetRequestVerificationKey() {
+		return $this->GetName().'_IsPostBack';
 	}
 	
 	/**
@@ -157,7 +199,9 @@ class HtmlFormElement extends HtmlElement
 			$serializer = HtmlSettings::$Serializer;
 		}
 		$strategy = $serializer->GetSerializer($this);
-		return $serializer->EndTag($strategy);		
+		$html = $this->PostFieldElement->Render($serializer);
+		$html.= $serializer->EndTag($strategy);	
+		return $html;
 	}
 }
 

@@ -4,7 +4,7 @@
 	"version" : "0.1.0",
 	"autoload": {
 		"classmap" : [
-			"Elements/Interfaces/IPostRenderEvents.php",
+			"Elements/Interfaces/IPreRenderEvents.php",
 			"Elements/Exceptions/HtmlElementException.php",			
 			"Elements/HtmlElement.php",
 			"Elements/HtmlChildElements.php",
@@ -20,6 +20,8 @@
 			"Elements/HtmlOptionElement.php",
 			"Elements/HtmlOptionGroupElement.php",
 			"Elements/HtmlSelectElement.php",
+			"Elements/CheckBox.php",
+			"Elements/CheckBoxList.php",
 			"Elements/TreeView.php",
 			"Elements/TreeViewItem.php",
 			"Elements/TreeViewItemExpander.php",
