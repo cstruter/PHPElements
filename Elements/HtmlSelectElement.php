@@ -6,6 +6,8 @@
 
 namespace CSTruter\Elements;
 
+use CSTruter\Elements\Exceptions\HtmlElementException;
+
 /**
 * Select element - drop-down list
 * @package	CSTruter\Elements
@@ -47,8 +49,8 @@ class HtmlSelectElement extends HtmlFormControlElement
 	private function setChild($child, $value) {
 		$optionValue = (string)$child;
 		$this->OptionValues[] = $optionValue;
-		$child->Selected = ($optionValue == $value);
-		if ($child->Selected) {
+		$child->SetSelected($optionValue == $value);
+		if ($child->GetSelected()) {
 			$this->Value = $optionValue;
 		}
 	}
@@ -56,6 +58,7 @@ class HtmlSelectElement extends HtmlFormControlElement
 	/**
 	* Value Setter - Set the selected value of the drop-down list
 	* @param string $value selected value
+	* @throws HtmlElementException if a non HtmlOptionElement|HtmlOptionGroupElement were added to the control
 	*/
 	public function SetValue($value) {
 		$this->OptionValues = [];
@@ -69,7 +72,7 @@ class HtmlSelectElement extends HtmlFormControlElement
 					$this->setChild($groupChild, $value);
 				}
 			} else {
-				throw new \Exception("Type of HtmlOptionElement expected in drop-down list $this->Name");
+				throw new HtmlElementException("Type of HtmlOptionElement|HtmlOptionGroupElement expected in drop-down list $this->Name", 10009);
 			}
 		}
 	}
@@ -78,6 +81,7 @@ class HtmlSelectElement extends HtmlFormControlElement
 	* Add a list of options /optgroups to the drop-down list
 	* @param HtmlOptionElement[]|HtmlOptionGroupElement[] $children array of options and optgroups
 	* @param string $value selected value
+	* @throws HtmlElementException if non unique values were added to the children argument
 	*/
 	public function SetChildren(array $children, $value = null)
 	{
@@ -85,7 +89,7 @@ class HtmlSelectElement extends HtmlFormControlElement
 		$this->SetValue($value);
 		
 		if (count($this->OptionValues) != count(array_unique($this->OptionValues))) {
-			throw new \Exception("Non unique values assigned to drop-down list $this->Name");
+			throw new HtmlElementException("Non unique values assigned to drop-down list $this->Name", 10008);
 		}		
 	}
 }

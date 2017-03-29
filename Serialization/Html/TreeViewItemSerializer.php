@@ -66,7 +66,7 @@ implements IHtmlElement, IHtmlInnerElements
 		if ($hasChildren) {
 			$CSSClasses[] = "$prefix-parent";
 		}
-		if ($this->element->Collapsed) {
+		if ($this->element->GetCollapsed()) {
 			$CSSClasses[] = "$prefix-collapsed";
 		}
 		if ($this->element->GetDisabled()) {

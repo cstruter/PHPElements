@@ -20,9 +20,9 @@ abstract class HtmlInputElement extends HtmlFormControlElement
 	
 	/**
 	* Constructor
-	* @param string $name			used to retrieve the element value from requests to the server and to identify the dom element client side
-	* @param string $type			the input type for the element, e.g hidden, text, button...
-	* @param string $value			(Optional) value displayed and sent from the element
+	* @param string $name used to retrieve the element value from requests to the server and to identify the dom element client side
+	* @param string $type the input type for the element, e.g hidden, text, button...
+	* @param string $value (Optional) value displayed and sent from the element
 	*/
 	public function __construct($name, $type, $value = null)
 	{

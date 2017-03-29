@@ -6,6 +6,10 @@
 
 namespace CSTruter\Elements;
 
+use CSTruter\Serialization\Interfaces\IHtmlSerializer,
+	CSTruter\Elements\Exceptions\HtmlElementException,
+	CSTruter\Elements\Interfaces\IPostRenderEvents;
+
 /**
 * Form Element
 * @package	CSTruter\Elements
@@ -21,6 +25,26 @@ class HtmlFormElement extends HtmlElement
 	/** @var string GET or POST */
 	protected $RequestMethod;
 	
+	/** @var string|callable File include or Closure within the form tags */
+	protected $OnBodyControlsAdded = null;
+	
+	/** @var string Filename for the view */
+	protected $View = null;
+	
+	/** @var string name of the element used in request and to identify element in client side DOM */
+	protected $Name;
+	
+	/**
+	* Constructor
+	* @param string $name used to identify the dom element client side	
+	* @param string $requestMethod GET or POST methods
+	*/
+	public function __construct($name, $requestMethod) {
+		$this->RequestMethod = $requestMethod;
+		$this->Name = $name;
+		$this->Children = new HtmlChildElements();
+	}
+
 	/**
 	* RequestMethod getter
 	* @return string
@@ -30,12 +54,25 @@ class HtmlFormElement extends HtmlElement
 	}
 	
 	/**
-	* Constructor
-	* @param string $requestMethod GET or POST methods
+	* Name Getter
+	* @return string
 	*/
-	public function __construct($requestMethod) {
-		$this->RequestMethod = $requestMethod;
-		$this->Children = new HtmlChildElements();
+	public function GetName() {
+		return $this->Name;
+	}
+	
+	/**
+	* Set Form Body
+	* @param string $view File name for view include
+	* @param callable $callback Closure fired when the view is created
+	* @throws HtmlElementException if a view filename cannot be found
+	*/
+	public function Body($view, \Closure $callback) {
+		if (!file_exists($view)) {
+			throw new HtmlElementException("View $view not found", 10005);
+		}
+		$this->View = $view;
+		$this->OnBodyControlsAdded = $callback;
 	}
 	
 	/**
@@ -53,10 +90,47 @@ class HtmlFormElement extends HtmlElement
 	}
 	
 	/**
-	* Not Implemented - Rather use BeginTag and EndTag
+	* Renders fileName set via Body method
 	* @param IHtmlSerializer|null $serializer serialization strategy
+	* @throws HtmlElementException if no child elements were added
 	*/
-	public function Render(IHtmlSerializer $serializer = null) { }
+	public function Render(IHtmlSerializer $serializer = null) { 
+		if ($this->OnBodyControlsAdded === null) {
+			throw new HtmlElementException('No elements assigned to this form', 10001);
+		}	
+		$html= $this->BeginTag($serializer);
+		$html.= $this->GetCallbackContents($serializer);
+		$html.= $this->EndTag($serializer);
+		return $html;
+	}
+	
+	/**
+	* Get contents of the Body method supplied fileName
+	* @param IHtmlSerializer|null $serializer serialization strategy
+	* @throws HtmlElementException if no child elements were added
+	* @return string
+	*/
+	protected function GetCallbackContents(IHtmlSerializer $serializer = null) {
+		$children = $this->OnBodyControlsAdded->__invoke($this);
+		if ($children === null) {
+			throw new HtmlElementException('No elements assigned to this form', 10002);
+		}
+		foreach($children as $child) {
+			$child->SetForm($this);
+		}
+		foreach($children as $child) {
+			if ($child instanceof IPostRenderEvents) {
+				$child->RaisePostRenderEvents();
+			}
+			$var = $child->GetName();
+			$$var = $child;
+		}
+		ob_start();
+		include $this->View;
+		$contents = ob_get_contents();
+		ob_end_clean();
+		return $contents;
+	}
 
 	/**
 	* Render the element

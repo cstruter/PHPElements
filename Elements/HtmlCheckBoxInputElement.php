@@ -6,6 +6,9 @@
 
 namespace CSTruter\Elements;
 
+use CSTruter\Elements\Exceptions\HtmlElementException,
+	CSTruter\Common\Exceptions\TypeException;
+
 /**
 * Textbox input element 
 * @package	CSTruter\Elements
@@ -20,8 +23,8 @@ class HtmlCheckBoxInputElement extends HtmlInputElement
 	
 	/**
 	* Constructor
-	* @param string $name			used to retrieve the element value from requests to the server and to identify the dom element client side
-	* @param string $value			(Optional) value sent from the element
+	* @param string $name used to retrieve the element value from requests to the server and to identify the dom element client side
+	* @param string $value (Optional) value sent from the element
 	*/
 	public function __construct($name, $value = null) {
 		parent::__construct($name, 'checkbox', $value);
@@ -38,16 +41,24 @@ class HtmlCheckBoxInputElement extends HtmlInputElement
 	/**
 	* Checked Setter
 	* @param boolean $value Checked or Unchecked (Default: false)
+	* @throws TypeException if a non boolean value was assigned the the value argument
 	*/
 	public function SetChecked($value) {
+		if (!is_bool($value)) {
+			throw new TypeException('Type bool expected', 1);
+		}		
 		$this->Checked = $value;
 	}
 	
 	/**
 	* FormElement Setter
 	* @param HtmlFormElement $formElement parent form this element reports to
+	* @throws HtmlElementException if this method is used a second time
 	*/
 	public function SetForm(HtmlFormElement $formElement) {
+		if ($this->FormElement !== null) {
+			throw new HtmlElementException('This element is already assigned to a form', 10000);
+		}		
 		$this->FormElement = $formElement;
 		$this->FormElement->Children->Add($this);
 		$name = $this->GetName();

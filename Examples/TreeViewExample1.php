@@ -23,18 +23,18 @@ $technologies = [
 	new TreeViewItem(13, '1.x', 8)
 ];
 
-$form = new HtmlFormElement('POST');
+$form = new HtmlFormElement('main', 'POST');
 
-$tree = new TreeView('technologies', $technologies);
-$tree->SetForm($form);
+$control = new TreeView('technologies', $technologies);
+$control->SetForm($form);
 
 $button = new HtmlButtonInputElement('btnSubmit', 'Go');
 $button->OnClick = function(HtmlFormElement $form) {
-	global $tree;
-	print $tree->GetValue();
+	global $control;
+	print $control->GetValue();
 };
 $button->SetForm($form);
 
-include 'Views/TreeViewExample.html.php';
+include 'Views/ControlExample.html.php';
 
 ?>

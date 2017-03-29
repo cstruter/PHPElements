@@ -6,7 +6,8 @@
 
 namespace CSTruter\Elements;
 
-use CSTruter\Serialization\Interfaces\IHtmlSerializer;
+use CSTruter\Serialization\Interfaces\IHtmlSerializer,
+	CSTruter\Common\Exceptions\TypeException;
 
 /**
 * Base class used for all html elements
@@ -33,8 +34,12 @@ abstract class HtmlElement
 	/**
 	* Disabled Setter
 	* @param boolean $value disable the element
+	* @throws TypeException if a non boolean value was assigned to the value argument
 	*/
 	public function SetDisabled($value) {
+		if (!is_bool($value)) {
+			throw new TypeException('Type bool expected', 1);
+		}
 		$this->Disabled = $value;
 	}	
 	

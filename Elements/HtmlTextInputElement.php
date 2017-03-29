@@ -17,8 +17,8 @@ class HtmlTextInputElement extends HtmlInputElement
 {
 	/**
 	* Constructor
-	* @param string $name			used to retrieve the element value from requests to the server and to identify the dom element client side
-	* @param string $value			(Optional) value displayed and sent from the element
+	* @param string $name used to retrieve the element value from requests to the server and to identify the dom element client side
+	* @param string $value (Optional) value displayed and sent from the element
 	*/
 	public function __construct($name, $value = null) {
 		parent::__construct($name, 'text', $value);

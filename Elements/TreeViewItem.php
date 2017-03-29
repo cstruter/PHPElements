@@ -6,6 +6,8 @@
 
 namespace CSTruter\Elements;
 
+use CSTruter\Common\Exceptions\TypeException;
+
 /**
 * Treeview item element - child element of Treeview element
 * @package	CSTruter\Elements
@@ -24,7 +26,7 @@ class TreeViewItem extends HtmlElement
 	public $ParentValue;
 	
 	/** @var boolean indicates whether or not the element is selected */
-	public $Selected = false;
+	protected $Selected = false;
 	
 	/** @var TreeViewItemExpander clickable expansion area*/
 	public $ExpanderElement;
@@ -39,7 +41,7 @@ class TreeViewItem extends HtmlElement
 	public $CSSClass = [];
 	
 	/** @var boolean the collapsed state of a node */
-	public $Collapsed = true;
+	protected $Collapsed = true;
 	
 	/**
 	* Constructor
@@ -47,9 +49,13 @@ class TreeViewItem extends HtmlElement
 	* @param string $text display text of the element
 	* @param string $parentValue the value assigned to the parent element
 	* @param boolean $selected indicates whether or not the element is selected
+	* @throws TypeException if non boolean value was assigned to the selected argument
 	*/
 	public function __construct($value, $text, $parentValue = null, $selected = false) 
 	{
+		if (!is_bool($selected)) {
+			throw new TypeException('Type bool expected', 1);
+		}
 		$this->Text = $text;
 		$this->Value = $value;
 		$this->Selected = $selected;
@@ -57,6 +63,46 @@ class TreeViewItem extends HtmlElement
 		$this->ExpanderElement = new TreeViewItemExpander($this);
 		$this->ContainerElement = new TreeViewItemContainer();
 	}
+	
+	/**
+	* Selected Getter
+	* @return boolean
+	*/
+	public function GetSelected() {
+		return $this->Selected;
+	}
+	
+	/**
+	* Selected Setter
+	* @param boolean $value is selected
+	* @throws TypeException if a non boolean value was assigned to the value argument
+	*/
+	public function SetSelected($value) {
+		if (!is_bool($value)) {
+			throw new TypeException('Type bool expected', 1);
+		}
+		$this->Selected = $value;
+	}
+
+	/**
+	* Collapsed Getter
+	* @return boolean
+	*/
+	public function GetCollapsed() {
+		return $this->Collapsed;
+	}
+	
+	/**
+	* Collapsed Setter
+	* @param boolean $value is selected
+	* @throws TypeException if a non boolean value was assigned to the value argument
+	*/
+	public function SetCollapsed($value) {
+		if (!is_bool($value)) {
+			throw new TypeException('Type bool expected', 1);
+		}
+		$this->Collapsed = $value;
+	}	
 	
 	/**
 	* Returns the value assigned to this treeview item

@@ -6,6 +6,8 @@
 
 namespace CSTruter\Elements;
 
+use CSTruter\Elements\Exceptions\HtmlElementException;
+
 /**
 * Base class used for all html controls, e.g. returns a value to the server via a form
 * @package	CSTruter\Elements
@@ -58,8 +60,12 @@ abstract class HtmlFormControlElement extends HtmlElement
 	/**
 	* FormElement Setter
 	* @param HtmlFormElement $formElement parent form this element reports to
+	* @throws HtmlElementException if this method is called a second time
 	*/
 	public function SetForm(HtmlFormElement $formElement) {
+		if ($this->FormElement !== null) {
+			throw new HtmlElementException('This element is already assigned to a form', 10000);
+		}
 		$this->FormElement = $formElement;
 		$this->FormElement->Children->Add($this);
 		$name = $this->GetName();

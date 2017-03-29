@@ -42,7 +42,7 @@ implements IHtmlElement
 			'type' => $this->element->GetType(),
 			'disabled' => ($this->element->GetDisabled()) ? '' : null
 		];
-		if ($this->element instanceof HtmlPasswordInputElement) {
+		if (!$this->element instanceof HtmlPasswordInputElement) {
 			$attributes['value'] = $this->element->GetValue();
 		}
 		if ($this->element instanceof HtmlCheckBoxInputElement) {

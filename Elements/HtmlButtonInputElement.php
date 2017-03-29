@@ -6,6 +6,8 @@
 
 namespace CSTruter\Elements;
 
+use CSTruter\Elements\Interfaces\IPostRenderEvents;
+
 /**
 * Textbox input element 
 * @package	CSTruter\Elements
@@ -13,9 +15,11 @@ namespace CSTruter\Elements;
 * @author Christoff Trüter <christoff@cstruter.com>
 * @copyright 2005-2017 CSTruter
 */
-class HtmlButtonInputElement extends HtmlInputElement
+class HtmlButtonInputElement 
+extends HtmlInputElement
+implements IPostRenderEvents
 {
-	/** @var callable Callback fired when the user clicked on the button */
+	/** @var callable Callback fired when the user clicked the button */
 	public $OnClick = null;
 	
 	/**
@@ -24,21 +28,21 @@ class HtmlButtonInputElement extends HtmlInputElement
 	* @param string $value (Optional) value displayed and sent from the element
 	*/
 	public function __construct($name, $value = null) {
-		parent::__construct($name, 'button', $value);
+		parent::__construct($name, 'submit', $value);
 	}
 	
 	/**
-	* FormElement Setter
-	* @param HtmlFormElement $formElement parent form this element reports to
-	*/
-	public function SetForm(HtmlFormElement $formElement) {
-		$this->Type = 'submit';
-		$this->FormElement = $formElement;
+	* Raise Post Render Events
+	*/	
+	public function RaisePostRenderEvents() {
+		if ($this->OnClick === null) {
+			return;
+		}
 		$name = $this->GetName();
 		$userValue = $this->FormElement->GetUserValue($name);
 		if ($userValue !== null) {
 			$this->OnClick->__invoke($this->FormElement); 
-		}
+		}		
 	}
 }
 

@@ -51,7 +51,7 @@ implements IHtmlElement, IHtmlInnerElements
 		$attributes = [
 			'data-value' => $this->element->ParentElement->Value
 		];
-		if ($this->element->ParentElement->Selected) {
+		if ($this->element->ParentElement->GetSelected()) {
 			$attributes['class'] = "$prefix-selected";
 		}
 		return $attributes;

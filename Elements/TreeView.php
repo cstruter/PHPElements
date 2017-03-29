@@ -6,6 +6,8 @@
 
 namespace CSTruter\Elements;
 
+use CSTruter\Elements\Exceptions\HtmlElementException;
+
 /**
 * Treeview element - used to display hierarchal data
 * @package	CSTruter\Elements
@@ -60,7 +62,7 @@ class TreeView extends HtmlFormControlElement
 	* @param TreeViewItem $item 
 	*/
 	public function Expand(TreeViewItem $item) {
-		$item->Collapsed = false;
+		$item->SetCollapsed(false);
 		if ($item->ParentElement instanceof TreeViewItem) {
 			$this->Expand($item->ParentElement);
 		}
@@ -88,6 +90,7 @@ class TreeView extends HtmlFormControlElement
 	* @param string $parentValue
 	* @param HtmlChildElements $children
 	* @param string $value
+	* @throws HtmlElementException if a non TreeViewElement child was added to this control
 	*/
 	private function setChildrenRecursive($parentElement, $parentValue, $children, $value) {
 		foreach($children as $child) {
@@ -99,13 +102,13 @@ class TreeView extends HtmlFormControlElement
 					$parentChildren->Add($child);
 					$this->setChildrenRecursive($child, $child->Value, $children, $value);
 				}
-				$child->Selected = false;
+				$child->SetSelected(false);
 				if ($child->Value == $value) {
-					$child->Selected = true;
+					$child->SetSelected(true);
 					$this->Value = $child;
 				}
 			} else {
-				throw new Exception("Values of TreeViewItem expected for $this->Name");
+				throw new HtmlElementException("Values of TreeViewItem expected for $this->Name", 10007);
 			}
 		}
 	}
@@ -119,11 +122,11 @@ class TreeView extends HtmlFormControlElement
 		$children = $this->getChildren($element)->Get();
 		foreach($children as $child) {
 			if ($child instanceof TreeViewItem) {
-				$child->Collapsed = true;
-				$child->Selected = false;
+				$child->SetCollapsed(true);
+				$child->SetSelected(false);
 				if ($child->Value == $value) {
 					$this->Value = $child;
-					$child->Selected = true;
+					$child->SetSelected(true);
 				}
 				if ($child->ContainerElement->Children->Count() > 0) {
 					$this->setValueRecursive($child, $value);

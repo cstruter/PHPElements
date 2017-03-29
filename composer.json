@@ -4,6 +4,8 @@
 	"version" : "0.1.0",
 	"autoload": {
 		"classmap" : [
+			"Elements/Interfaces/IPostRenderEvents.php",
+			"Elements/Exceptions/HtmlElementException.php",			
 			"Elements/HtmlElement.php",
 			"Elements/HtmlChildElements.php",
 			"Elements/HtmlFormControlElement.php",
@@ -22,6 +24,7 @@
 			"Elements/TreeViewItem.php",
 			"Elements/TreeViewItemExpander.php",
 			"Elements/TreeViewItemContainer.php",
+			"Elements/HtmlPageElement.php",
 			"Serialization/Interfaces/IHtmlElement.php",
 			"Serialization/Interfaces/IHtmlInnerElements.php",
 			"Serialization/Interfaces/IHtmlScriptBlock.php",
