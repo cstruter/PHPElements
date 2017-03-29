@@ -138,3 +138,18 @@ ul.cstruter-tree-responsive li.cstruter-tree-responsive-parent.cstruter-tree-res
 ul.cstruter-tree-responsive li span.cstruter-tree-responsive-obscure {
 	display:none;
 }
+
+
+.cstruter-checkboxlist label {
+	display: block;
+}
+
+.cstruter-checkboxlist input {
+  width: 13px;
+  height: 13px;
+  padding: 0;
+  margin:0;
+  vertical-align: bottom;
+  position: relative;
+  top: -1px;
+}

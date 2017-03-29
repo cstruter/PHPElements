@@ -35,7 +35,8 @@ implements IHtmlElement, IHtmlInnerElements
 	* @return array
 	*/	
 	public function GetAttributes() {
-		return null;
+		return [
+			'class' => 'cstruter-checkboxlist'];
 	}
 
 	/**
