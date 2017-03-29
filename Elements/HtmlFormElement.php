@@ -8,7 +8,7 @@ namespace CSTruter\Elements;
 
 use CSTruter\Serialization\Interfaces\IHtmlSerializer,
 	CSTruter\Elements\Exceptions\HtmlElementException,
-	CSTruter\Elements\Interfaces\IPostRenderEvents;
+	CSTruter\Elements\Interfaces\IPreRenderEvents;
 
 /**
 * Form Element
@@ -119,8 +119,8 @@ class HtmlFormElement extends HtmlElement
 			$child->SetForm($this);
 		}
 		foreach($children as $child) {
-			if ($child instanceof IPostRenderEvents) {
-				$child->RaisePostRenderEvents();
+			if ($child instanceof IPreRenderEvents) {
+				$child->RaisePreRenderEvents();
 			}
 			$var = $child->GetName();
 			$$var = $child;

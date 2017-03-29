@@ -6,7 +6,7 @@
 
 namespace CSTruter\Elements;
 
-use CSTruter\Elements\Interfaces\IPostRenderEvents;
+use CSTruter\Elements\Interfaces\IPreRenderEvents;
 
 /**
 * Textbox input element 
@@ -17,7 +17,7 @@ use CSTruter\Elements\Interfaces\IPostRenderEvents;
 */
 class HtmlButtonInputElement 
 extends HtmlInputElement
-implements IPostRenderEvents
+implements IPreRenderEvents
 {
 	/** @var callable Callback fired when the user clicked the button */
 	public $OnClick = null;
@@ -34,7 +34,7 @@ implements IPostRenderEvents
 	/**
 	* Raise Post Render Events
 	*/	
-	public function RaisePostRenderEvents() {
+	public function RaisePreRenderEvents() {
 		if ($this->OnClick === null) {
 			return;
 		}
