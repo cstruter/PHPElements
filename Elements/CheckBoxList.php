@@ -34,16 +34,14 @@ class CheckBoxList extends HtmlFormControlElement
 	/**
 	* Value Setter - Set the selected value of the drop-down list
 	* @param string[] $values selected values
+	* @throws HtmlElementException if a checkbox without a set value is found
 	*/
 	public function SetValue($values) {
-		$counter = 0;
 		$children = $this->Children->Get();
 		foreach($children as $child) {
-			$counter++;
 			$value = $child->GetValue();
 			if ($value === null) {
-				$value = $counter;
-				$child->SetValue($value);
+				throw new HtmlElementException('In this context a checkbox requires a default value', 10013);
 			}
 			$child->SetChecked(in_array($value, $values));
 		}

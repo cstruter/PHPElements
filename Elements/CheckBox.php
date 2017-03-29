@@ -36,7 +36,8 @@ class CheckBox extends HtmlFormControlElement
 	public function __construct($name, $label, $value = null) {
 		parent::__construct($name);
 		$this->Label = $label;
-		$this->FormFieldElement = new HtmlCheckBoxInputElement($name, $value);
+		$this->FormFieldElement = new HtmlCheckBoxInputElement($name);
+		$this->SetValue($value);
 	}
 	
 	/**
