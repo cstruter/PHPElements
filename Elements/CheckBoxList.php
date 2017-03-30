@@ -48,6 +48,20 @@ class CheckBoxList extends HtmlFormControlElement
 	}
 	
 	/**
+	* Value Getter
+	* @return string[]
+	*/
+	public function GetValue() {
+		$checkboxes = $this->Children->Get();
+		$value = [];
+		foreach($checkboxes as $checkbox) {
+			if ($checkbox->GetChecked())
+				$value[] = $checkbox->GetValue(); 
+		}
+		return $value;
+	}
+	
+	/**
 	* Add a list of options /optgroups to the drop-down list
 	* @param HtmlOptionElement[]|HtmlOptionGroupElement[] $children array of options and optgroups
 	* @param string[] $value selected value

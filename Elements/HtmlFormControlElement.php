@@ -77,6 +77,14 @@ abstract class HtmlFormControlElement extends HtmlElement
 			$this->SetValue($userValue);
 		}
 	}
+	
+	/**
+	* FormElement Getter
+	* @return HtmlFormElement
+	*/
+	public function GetForm() {
+		return $this->FormElement;
+	}
 }
 
 ?>

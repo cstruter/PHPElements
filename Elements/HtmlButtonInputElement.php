@@ -44,7 +44,7 @@ implements IPreRenderEvents
 		}
 		$userValue = $this->FormElement->GetUserValue($name);
 		if ($userValue !== null) {
-			$this->OnClick->__invoke($this->FormElement); 
+			$this->OnClick->__invoke($this); 
 		}		
 	}
 }
