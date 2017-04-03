@@ -8,7 +8,8 @@ namespace CSTruter\Elements;
 
 use CSTruter\Serialization\Interfaces\IHtmlSerializer,
 	CSTruter\Elements\Exceptions\HtmlElementException,
-	CSTruter\Elements\Interfaces\IPreRenderEvents;
+	CSTruter\Elements\Interfaces\IPreRenderEvents,
+	CSTruter\Elements\Interfaces\IHtmlFormControlElement;
 
 /**
 * Form Element
@@ -158,7 +159,9 @@ class HtmlFormElement extends HtmlElement
 			throw new HtmlElementException('No elements assigned to this form', 10002);
 		}
 		foreach($children as $child) {
-			$child->SetForm($this);
+			if ($child instanceof IHtmlFormControlElement) {
+				$child->SetForm($this);
+			}
 		}
 		foreach($children as $child) {
 			if ($child instanceof IPreRenderEvents) {

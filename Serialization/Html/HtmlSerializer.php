@@ -21,7 +21,10 @@ use CSTruter\Serialization\Interfaces\IHtmlElement,
 	CSTruter\Elements\TreeView,
 	CSTruter\Elements\TreeViewItem,
 	CSTruter\Elements\TreeViewItemExpander,
-	CSTruter\Elements\TreeViewItemContainer;
+	CSTruter\Elements\TreeViewItemContainer,
+	CSTruter\Elements\DropDownContainerButton,
+	CSTruter\Elements\DropDownContainerContent,
+	CSTruter\Elements\DropDownContainer;
 
 /**
 * Html serialization strategy
@@ -82,6 +85,12 @@ implements IHtmlSerializer
 			return new TreeViewItemContainerSerializer($element);
 		} else if ($element instanceof HtmlFormElement) {
 			return new HtmlFormSerializer($element);
+		} else if ($element instanceof DropDownContainer) {
+			return new DropDownContainerSerializer($element);
+		} else if ($element instanceof DropDownContainerButton) {
+			return new DropDownContainerButtonSerializer($element);
+		} else if ($element instanceof DropDownContainerContent) {
+			return new DropDownContainerContentSerializer($element);
 		}
 		throw new \Exception('No metadata found for element '.get_class($element));
 	}

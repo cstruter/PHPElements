@@ -12,7 +12,7 @@
 	};
 	
 	/**
-	 * Drop-Down List Class
+	 * DropDownList Class
 	 * @constructor
 	 * @param {string} id - Element id.
 	 */

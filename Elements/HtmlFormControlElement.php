@@ -6,7 +6,8 @@
 
 namespace CSTruter\Elements;
 
-use CSTruter\Elements\Exceptions\HtmlElementException;
+use CSTruter\Elements\Exceptions\HtmlElementException,
+	CSTruter\Elements\Interfaces\IHtmlFormControlElement;
 
 /**
 * Base class used for all html controls, e.g. returns a value to the server via a form
@@ -14,7 +15,9 @@ use CSTruter\Elements\Exceptions\HtmlElementException;
 * @author Christoff Trüter <christoff@cstruter.com>
 * @copyright 2005-2017 CSTruter
 */
-abstract class HtmlFormControlElement extends HtmlElement
+abstract class HtmlFormControlElement 
+extends HtmlElement
+implements IHtmlFormControlElement
 {
 	/** @var HtmlFormElement the parent form this control reports to */
 	protected $FormElement;

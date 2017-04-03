@@ -1,0 +1,12 @@
+.cstruter-dropdown-container-content .cstruter-checkboxlist input {
+	cursor: pointer;	
+}
+
+.cstruter-dropdown-container-content .cstruter-checkboxlist label {
+	padding-left:4px;
+	cursor: pointer;
+}
+
+.cstruter-dropdown-container-content .cstruter-checkboxlist label:hover {
+	background-color:#EEE;
+}

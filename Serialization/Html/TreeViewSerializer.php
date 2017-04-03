@@ -90,11 +90,11 @@ implements IHtmlElement, IHtmlInnerElements, IHtmlScriptBlock
 	*/	
 	public function GetClientScriptBlock() {
 		$strategy = $this->element->Strategy;
-		$elementId = $this->element->GetName();
-		$scriptBlock = "CSTruter.Elements.TreeView('$elementId', '$strategy').AttachTreeViewEvents();";
+		$name = $this->element->GetName();
+		$scriptBlock = "CSTruter.Elements.TreeView('$name', '$strategy').AttachTreeViewEvents();";
 		if ($this->element->OnClientChange !== null) {
 			$changeListener = $this->element->OnClientChange;
-			$scriptBlock.="CSTruter.Elements.TreeView('$elementId', '$strategy').OnChange($changeListener);";
+			$scriptBlock.="CSTruter.Elements.TreeView('$name', '$strategy').OnChange($changeListener);";
 		}
 		return $scriptBlock;
 	}
