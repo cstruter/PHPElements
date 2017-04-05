@@ -10,7 +10,7 @@ use CSTruter\Elements\Exceptions\HtmlElementException,
 	CSTruter\Common\Exceptions\TypeException;
 
 /**
-* Textbox input element 
+* Checkbox input element 
 * @package	CSTruter\Elements
 * @see 		https://www.w3schools.com/tags/tag_input.asp
 * @author Christoff Trüter <christoff@cstruter.com>

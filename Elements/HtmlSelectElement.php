@@ -27,7 +27,7 @@ class HtmlSelectElement extends HtmlFormControlElement
 	public $Children;
 	
 	/** @var string[] internal list used to check for duplicate values */
-	private $OptionValues = [];
+	protected $OptionValues = [];
 	
 	/**
 	* Constructor
@@ -46,7 +46,7 @@ class HtmlSelectElement extends HtmlFormControlElement
 	* @param HtmlOptionElement|HtmlOptionGroupElement $child option or optgroup
 	* @param string $value selected value
 	*/
-	private function setChild($child, $value) {
+	protected function SetChild($child, $value) {
 		$optionValue = (string)$child;
 		$this->OptionValues[] = $optionValue;
 		$child->SetSelected($optionValue == $value);
@@ -65,11 +65,11 @@ class HtmlSelectElement extends HtmlFormControlElement
 		$children = $this->Children->Get();
 		foreach($children as $child) {
 			if ($child instanceof HtmlOptionElement) {
-				$this->setChild($child, $value);
+				$this->SetChild($child, $value);
 			} else if ($child instanceof HtmlOptionGroupElement) {
 				$groupChildren = $child->GetChildren();
 				foreach($groupChildren as $groupChild) {
-					$this->setChild($groupChild, $value);
+					$this->SetChild($groupChild, $value);
 				}
 			} else {
 				throw new HtmlElementException("Type of HtmlOptionElement|HtmlOptionGroupElement expected in drop-down list $this->Name", 10009);

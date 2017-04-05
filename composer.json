@@ -4,7 +4,10 @@
 	"version" : "0.1.0",
 	"autoload": {
 		"classmap" : [
+			"Elements/DataSource/KeyValueItem.php",
+			"Elements/DataSource/KeyValueSource.php",
 			"Elements/Interfaces/IPreRenderEvents.php",
+			"Elements/Interfaces/IHtmlFormControlElement.php",
 			"Elements/Exceptions/HtmlElementException.php",			
 			"Elements/HtmlElement.php",
 			"Elements/HtmlChildElements.php",
@@ -22,6 +25,10 @@
 			"Elements/HtmlSelectElement.php",
 			"Elements/CheckBox.php",
 			"Elements/CheckBoxList.php",
+			"Elements/DropDownContainer.php",
+			"Elements/DropDownContainerButton.php",
+			"Elements/DropDownContainerContent.php",
+			"Elements/DropDownContainerFormControl.php",
 			"Elements/TreeView.php",
 			"Elements/TreeViewItem.php",
 			"Elements/TreeViewItemExpander.php",
@@ -40,7 +47,12 @@
 			"Serialization/Html/TreeViewItemSerializer.php",
 			"Serialization/Html/TreeViewItemExpanderSerializer.php",
 			"Serialization/Html/TreeViewItemContainerSerializer.php",
-			"Serialization/Html/HtmlSerializer.php"
+			"Serialization/Html/HtmlSerializer.php",
+			"Serialization/Html/CheckBoxSerializer.php",
+			"Serialization/Html/CheckBoxListSerializer.php",
+			"Serialization/Html/DropDownContainerSerializer.php",
+			"Serialization/Html/DropDownContainerButtonSerializer.php",
+			"Serialization/Html/DropDownContainerContentSerializer.php"
 		]
 	},
     "require-dev": {

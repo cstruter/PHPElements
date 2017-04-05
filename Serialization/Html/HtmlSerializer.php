@@ -13,11 +13,13 @@ use CSTruter\Serialization\Interfaces\IHtmlElement,
 	CSTruter\Elements\HtmlElement,
 	CSTruter\Elements\HtmlFormElement,
 	CSTruter\Elements\HtmlSelectElement,
+	CSTruter\Elements\HtmlTextAreaElement,
 	CSTruter\Elements\HtmlOptionElement,
 	CSTruter\Elements\HtmlOptionGroupElement,
 	CSTruter\Elements\HtmlInputElement,
 	CSTruter\Elements\CheckBox,
 	CSTruter\Elements\CheckBoxList,
+	CSTruter\Elements\ListBoxElement,
 	CSTruter\Elements\TreeView,
 	CSTruter\Elements\TreeViewItem,
 	CSTruter\Elements\TreeViewItemExpander,
@@ -63,7 +65,9 @@ implements IHtmlSerializer
 	* @return mixed
 	*/
 	public function GetSerializer($element) {
-		if ($element instanceof HtmlSelectElement) {
+		if ($element instanceof ListBoxElement) {
+			return new ListBoxSerializer($element);
+		} else if ($element instanceof HtmlSelectElement) {
 			return new HtmlSelectSerializer($element);
 		} else if ($element instanceof HtmlOptionElement) {
 			return new HtmlOptionSerializer($element);
@@ -71,6 +75,8 @@ implements IHtmlSerializer
 			return new HtmlOptionGroupSerializer($element);
 		} else if ($element instanceof HtmlInputElement) {
 			return new HtmlInputSerializer($element);
+		} else if ($element instanceof HtmlTextAreaElement) {
+			return new HtmlTextAreaSerializer($element);
 		} else if ($element instanceof CheckBox) {
 			return new CheckBoxSerializer($element);
 		} else if ($element instanceof CheckBoxList) {

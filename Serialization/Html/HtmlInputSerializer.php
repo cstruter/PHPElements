@@ -9,7 +9,8 @@ namespace CSTruter\Serialization\Html;
 use CSTruter\Serialization\Interfaces\IHtmlElement,
 	CSTruter\Elements\HtmlInputElement,
 	CSTruter\Elements\HtmlCheckBoxInputElement,
-	CSTruter\Elements\HtmlPasswordInputElement;
+	CSTruter\Elements\HtmlPasswordInputElement,
+	CSTruter\Elements\HtmlRadioBoxInputElement;
 
 /**
 * Html input element serialization strategy
@@ -44,6 +45,12 @@ implements IHtmlElement
 		];
 		if (!$this->element instanceof HtmlPasswordInputElement) {
 			$attributes['value'] = $this->element->GetValue();
+		}
+		if ($this->element instanceof HtmlRadioBoxInputElement) {
+			$name = $this->element->GetGroupName();
+			if ($name !== null) {
+				$attributes['name'] = $name;
+			}
 		}
 		if ($this->element instanceof HtmlCheckBoxInputElement) {
 			if ($this->element->GetChecked()) {

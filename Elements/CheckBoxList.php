@@ -6,7 +6,8 @@
 
 namespace CSTruter\Elements;
 
-use CSTruter\Elements\Exceptions\HtmlElementException;
+use CSTruter\Elements\Exceptions\HtmlElementException,
+	CSTruter\DataSource\KeyValueSource;
 
 /**
 * List of Checkboxes
@@ -22,13 +23,13 @@ class CheckBoxList extends HtmlFormControlElement
 	/**
 	* Constructor
 	* @param string $name name of the element 
-	* @param CheckBox[] $children array of checkboxes
+	* @param KeyValueSource $datasource datasource used to create checkboxes
 	* @param string[] $values (Optional) selected values
 	*/
-	public function __construct($name, array $children = [], $values = null)
+	public function __construct($name, KeyValueSource $datasource, $values = null)
 	{
 		parent::__construct($name);
-		$this->SetChildren($children, $values);
+		$this->SetChildren($datasource, $values);
 	}
 
 	/**
@@ -62,13 +63,19 @@ class CheckBoxList extends HtmlFormControlElement
 	}
 	
 	/**
-	* Add a list of options /optgroups to the drop-down list
-	* @param HtmlOptionElement[]|HtmlOptionGroupElement[] $children array of options and optgroups
+	* Add a datasource to the CheckBoxList
+	* @param KeyValueSource $datasource datasource used to generate checkboxes
 	* @param string[] $value selected value
 	*/
-	public function SetChildren(array $children, $value = null)
+	public function SetChildren(KeyValueSource $datasource, $value = null)
 	{
-		$this->Children = new HtmlChildElements($children);	
+		$name = $this->GetName();
+		$items = $datasource->GetSource();
+		$this->Children = new HtmlChildElements();
+		foreach ($datasource->GetSource() as $key => $item) {
+			$child = new CheckBox($name.'_'.$key, $item->Key, $item->Value);
+			$this->Children->Add($child);
+		}
 		$this->SetValue($value);
 	}
 	

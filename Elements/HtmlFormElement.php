@@ -83,15 +83,25 @@ class HtmlFormElement extends HtmlElement
 	/**
 	* Get value from request based on request method
 	* @param string $name element request object property name
+	* @return string|string[]
 	*/
 	public function GetUserValue($name)
 	{
+		$value = null;
 		if ($this->RequestMethod == 'POST' && isset($_POST[$name])) {
-			return htmlspecialchars_decode($_POST[$name]);
+			$value = $_POST[$name];
 		} else if ($this->RequestMethod == 'GET' && isset($_GET[$name])) {
-			return htmlspecialchars_decode($_GET[$name]);
+			$value = $_GET[$name];
 		}
-		return null;
+		if ($value !== null) {
+			if (is_array($value)) {
+				return array_map(function($value) { 
+					return htmlspecialchars_decode($value); 
+				}, $value);
+			}
+			return htmlspecialchars_decode($value);
+		}
+		return $value;
 	}
 	
 	/**
